@@ -11,3 +11,4 @@ node_modules
 .vscode
 sqlite3.db
 sqlite3_.db
+.github
