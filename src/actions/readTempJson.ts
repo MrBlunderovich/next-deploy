@@ -14,6 +14,8 @@ export default async function readTempJson() {
     console.log(JSON.parse(data));
     return JSON.parse(data).key;
   } catch (error) {
+    console.log(error);
+
     return "failed to read temp.json";
   }
 }
