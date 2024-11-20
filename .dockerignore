@@ -12,3 +12,4 @@ node_modules
 sqlite3.db
 sqlite3_.db
 .github
+db
