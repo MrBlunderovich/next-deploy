@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1732209121420,
+      "tag": "0000_thankful_lila_cheney",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1732294539449,
+      "tag": "0001_amused_blink",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1732295407482,
+      "tag": "0002_tiny_kang",
+      "breakpoints": true
+    }
+  ]
+}
