@@ -25,13 +25,22 @@ WORKDIR /app
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
     PORT=3201 \
-    HOSTNAME="0.0.0.0"
+    HOSTNAME="0.0.0.0" \
+    DATABASE_URL="/app/db/sqlite3.db"
+
 RUN addgroup --system --gid 1001 nodejs \
  && adduser --system --uid 1001 nextjs
+ 
 COPY --from=builder /app/public ./public
 RUN mkdir -p /app/.next && chown nextjs:nodejs /app/.next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder /app/src/drizzle ./src/drizzle
+
+# Ensure correct permissions for database
+RUN mkdir -p /app/db && chown -R nextjs:nodejs /app/db
+
 USER nextjs
 EXPOSE 3201
-CMD ["node", "server.js"]
+# CMD ["node", "server.js"]
+CMD npm run migrate && node server.js
