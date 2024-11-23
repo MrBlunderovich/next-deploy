@@ -50,6 +50,13 @@
       "when": 1732358797401,
       "tag": "0006_natural_mathemanic",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1732365215461,
+      "tag": "0007_dapper_silver_sable",
+      "breakpoints": true
     }
   ]
 }
