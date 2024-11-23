@@ -14,7 +14,7 @@ export const TaskTable = sqliteTable("tasks", {
     .notNull(),
   created_at: text("created_at").$defaultFn(isoDate).notNull(),
   updated_at: text("updated_at").$onUpdateFn(isoDate).notNull(),
-  test2: text("test2"),
+  test4: text("test4"),
 });
 
 export type InsertTask = InferInsertModel<typeof TaskTable>;
