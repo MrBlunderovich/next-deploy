@@ -7,6 +7,8 @@ export default defineConfig({
   dbCredentials: {
     url: process.env.DATABASE_URL || "",
   },
-  verbose: true,
+  verbose:
+    process.env.NODE_ENV === "development" ||
+    process.env.DRIZZLE_VERBOSE === "true",
   strict: true,
 });

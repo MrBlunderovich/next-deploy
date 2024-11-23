@@ -1,3 +1,4 @@
+import { cn } from "@/common/cn";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
@@ -17,7 +18,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${primaryFont.className} antialiased`}>{children}</body>
+      <body
+        className={cn(
+          primaryFont.className,
+          "flex min-h-screen flex-col antialiased",
+        )}
+      >
+        {children}
+      </body>
     </html>
   );
 }
