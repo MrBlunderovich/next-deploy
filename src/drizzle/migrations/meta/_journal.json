@@ -29,6 +29,13 @@
       "when": 1732370706604,
       "tag": "0003_perpetual_marvex",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1732371031332,
+      "tag": "0004_crazy_jackal",
+      "breakpoints": true
     }
   ]
 }
