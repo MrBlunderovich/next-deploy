@@ -57,6 +57,13 @@
       "when": 1732365215461,
       "tag": "0007_dapper_silver_sable",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1732368159120,
+      "tag": "0008_big_sister_grimm",
+      "breakpoints": true
     }
   ]
 }
