@@ -8,6 +8,13 @@
       "when": 1732368939994,
       "tag": "0000_mute_joseph",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1732369455204,
+      "tag": "0001_small_sumo",
+      "breakpoints": true
     }
   ]
 }

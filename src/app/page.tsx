@@ -1,7 +1,7 @@
 import { cn } from "@/common/cn";
 import { db } from "@/drizzle/db";
 import { TaskTable } from "@/drizzle/schema";
-import { desc, eq } from "drizzle-orm";
+import { asc, desc, eq } from "drizzle-orm";
 import { Check, PlusCircle, Trash2 } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
@@ -12,7 +12,7 @@ export default async function Home() {
   const data = await db
     .select()
     .from(TaskTable)
-    .orderBy(desc(TaskTable.is_completed), desc(TaskTable.updated_at));
+    .orderBy(asc(TaskTable.is_completed), desc(TaskTable.updated_at));
 
   async function postTask(formData: FormData) {
     "use server";
