@@ -15,6 +15,13 @@
       "when": 1732369455204,
       "tag": "0001_small_sumo",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1732369980221,
+      "tag": "0002_loving_kang",
+      "breakpoints": true
     }
   ]
 }
