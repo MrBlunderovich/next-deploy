@@ -25,8 +25,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/mrblunderovich/next-deploy:latest .
+          docker build -t ghcr.io/mrblunderovich/next-sqlite:latest .
 
       - name: Push Docker image to GHCR
         run: |
-          docker push ghcr.io/mrblunderovich/next-deploy:latest
+          docker push ghcr.io/mrblunderovich/next-sqlite:latest
