@@ -1,8 +1,9 @@
-import type { NextRequest } from "next/server";
+// import type { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
-  console.log(request.nextUrl.href, ">>>>>>>>>>>>>>>>>>>>>>>request href");
-}
+// export function middleware(request: NextRequest) {
+//   console.log(request.nextUrl.href, ">>>>>>>>>>>>>>>>>>>>>>>request href");
+// }
+export { auth as middleware } from "@/nextauth";
 
 export const config = {
   matcher: [

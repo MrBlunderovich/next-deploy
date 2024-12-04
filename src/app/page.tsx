@@ -1,4 +1,5 @@
 import { cn } from "@/common/cn";
+import AuthButton from "@/components/ui/auth/AuthButton.server";
 import { db } from "@/drizzle/db";
 import { TaskTable } from "@/drizzle/schema";
 import { asc, desc, eq } from "drizzle-orm";
@@ -112,6 +113,8 @@ export default async function Home() {
       <Link className="underline" href="/another-page">
         Go to another page
       </Link>
+
+      <AuthButton />
     </main>
   );
 }

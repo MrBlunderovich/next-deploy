@@ -1,31 +1,18 @@
 "use client";
 
-import { redirect, useSearchParams } from "next/navigation";
-import { FormEvent } from "react";
+import { useSearchParams } from "next/navigation";
 import { signInAction } from "./action";
 import Link from "next/link";
-import { auth } from "@/nextauth";
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const username = form.username.value;
-    const password = form.password.value;
 
-    await signInAction("credentials", {
-      username,
-      password,
-      redirect: false,
-    });
-
-    const session = await auth();
-    if (!session) console.error("session is null");
-    console.log(session, "session");
-
-    redirect(callbackUrl || "/another-page");
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    // formSignIn(formData);
+    signInAction("credentials", formData);
   }
 
   return (
@@ -34,6 +21,7 @@ export default function LoginPage() {
       <form
         className="flex flex-col gap-4 rounded border border-red-500 p-4"
         onSubmit={handleSubmit}
+        // action={formSignIn}
       >
         <input
           className="rounded px-2 py-1 text-black"
@@ -41,6 +29,7 @@ export default function LoginPage() {
           name="username"
           id="username"
           placeholder="username"
+          defaultValue={"jsmith"}
         />
         <input
           className="rounded px-2 py-1 text-black"
@@ -48,6 +37,14 @@ export default function LoginPage() {
           name="password"
           id="password"
           placeholder="Password"
+          defaultValue={"pass"}
+        />
+        <input
+          hidden
+          type="text"
+          name="redirectTo"
+          readOnly
+          value={callbackUrl || "/"}
         />
         <button
           className="rounded bg-cyan-600 px-4 py-2 font-bold text-black hover:bg-red-500"

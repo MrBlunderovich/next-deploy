@@ -8,11 +8,12 @@ export const authConfig: NextAuthConfig = {
     Credentials({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
+        username: {}, //{ label: "Username", type: "text", placeholder: "jsmith" },
+        password: {}, //{ label: "Password", type: "password" },
       },
       authorize: async (credentials): Promise<any | null> => {
-        console.log(credentials, "credentials");
+        console.log(credentials, "authorize fn credentials");
+
         if (
           credentials?.username === "jsmith" &&
           credentials?.password === "pass"

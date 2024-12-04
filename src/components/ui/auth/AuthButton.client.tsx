@@ -2,14 +2,17 @@
 
 import { cn } from "@/common/cn";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 export default function AuthButtonClient() {
+  const pathname = usePathname();
   const session = useSession();
   const user = session.data?.user;
 
   function handleClick() {
     if (user) {
-      signOut();
+      // signOut();
+      signOut({ redirectTo: "/custom/login?callbackUrl=" + pathname });
     } else {
       signIn();
     }
