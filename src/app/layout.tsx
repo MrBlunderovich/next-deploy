@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import ThemeToggle from "@/components/ui/theme-toggle";
 
 const primaryFont = Montserrat({
   subsets: ["latin"],
@@ -31,6 +32,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <header className="flex items-center justify-center bg-emerald-500 p-4">
+            <ThemeToggle />
+          </header>
           {children}
         </ThemeProvider>
       </body>
