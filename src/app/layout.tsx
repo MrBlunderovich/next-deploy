@@ -32,7 +32,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <header className="flex items-center justify-center bg-emerald-500 p-4">
+          <header className="csstricks-gradient relative flex items-center justify-end px-4 py-2">
             <ThemeToggle />
           </header>
           {children}
