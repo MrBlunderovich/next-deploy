@@ -12,7 +12,7 @@ export default function AuthButtonClient() {
   function handleClick() {
     if (user) {
       // signOut();
-      signOut({ redirectTo: "/custom/login?callbackUrl=" + pathname });
+      signOut({ redirectTo: "/auth/login?callbackUrl=" + pathname });
     } else {
       signIn();
     }

@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
-export const BASE_PATH = "/auth";
+export const BASE_PATH = "/auth/api";
 
 export const authConfig: NextAuthConfig = {
   providers: [
@@ -46,7 +46,7 @@ export const authConfig: NextAuthConfig = {
   basePath: BASE_PATH,
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/custom/login",
+    signIn: "/auth/login",
   },
 };
 
