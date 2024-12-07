@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { signInAction } from "./action";
+import { signInAction } from "./actions";
 import Link from "next/link";
 
 export default function LoginPage() {

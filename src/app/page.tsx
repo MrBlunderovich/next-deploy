@@ -1,4 +1,4 @@
-import { cn } from "@/common/cn";
+import { cn } from "@/lib/utils";
 import AuthButton from "@/components/ui/auth/AuthButton.server";
 import { db } from "@/drizzle/db";
 import { TaskTable } from "@/drizzle/schema";

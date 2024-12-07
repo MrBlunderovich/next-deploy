@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/common/cn";
+import { cn } from "@/lib/utils";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 

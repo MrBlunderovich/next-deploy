@@ -15,10 +15,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-// import { addUser } from "@/actions/users";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { createUser, signInAction } from "../../login/actions";
+import { signIn } from "next-auth/react";
 
 const FormSchema = z
   .object({
@@ -66,13 +67,17 @@ export default function SignupForm() {
     try {
       console.log(data);
 
-      // const response = await addUser(data);
-      // const userId = response?.id;
-      // if (!userId) {
-      //   console.log(response);
-      //   throw new Error("Could not create user");
-      // }
-      // router.replace(`/signup/${userId}`);
+      const response = await createUser(data);
+      const userId = response?.id;
+      if (!userId) {
+        console.log(response);
+        throw new Error("Could not create user");
+      }
+
+      signInAction("credentials", {
+        email: data.email,
+        password: data.password,
+      });
     } catch (error: any) {
       console.error(error);
       console.log(error?.message);

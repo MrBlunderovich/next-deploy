@@ -1,4 +1,4 @@
-import { cn } from "@/common/cn";
+import { cn } from "@/lib/utils";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
