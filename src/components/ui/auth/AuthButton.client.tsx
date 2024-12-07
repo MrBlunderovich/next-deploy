@@ -26,7 +26,7 @@ export default function AuthButtonClient() {
       )}
       onClick={handleClick}
     >
-      {user ? `${user.name} : Logout` : "Login"}
+      {user ? `${user.name} : Log Out` : "Log In"}
     </button>
   );
 }

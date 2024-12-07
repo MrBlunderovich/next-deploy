@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import * as React from "react";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -17,6 +17,8 @@ import {
 import { Input } from "@/components/ui/input";
 // import { addUser } from "@/actions/users";
 import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const FormSchema = z
   .object({
@@ -38,7 +40,7 @@ const FormSchema = z
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: "custom",
-        message: "The passwords did not match",
+        message: "Passwords did not match",
         path: ["confirmPassword"],
       });
     }
@@ -46,6 +48,7 @@ const FormSchema = z
 
 export default function SignupForm() {
   const [pending, setPending] = React.useState(false);
+  const [hidePassword, setHidePassword] = React.useState(false);
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -127,9 +130,14 @@ export default function SignupForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input {...field} type={"password"} />
+                <PasswordButtonWrapper
+                  hidePassword={hidePassword}
+                  setHidePassword={setHidePassword}
+                >
+                  <Input {...field} type={hidePassword ? "password" : "text"} />
+                </PasswordButtonWrapper>
               </FormControl>
-              <FormDescription>Six or more characters</FormDescription>
+              <FormDescription>6+ characters</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -141,7 +149,12 @@ export default function SignupForm() {
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
-                <Input {...field} type={"password"} />
+                <PasswordButtonWrapper
+                  hidePassword={hidePassword}
+                  setHidePassword={setHidePassword}
+                >
+                  <Input {...field} type={hidePassword ? "password" : "text"} />
+                </PasswordButtonWrapper>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -152,5 +165,31 @@ export default function SignupForm() {
         </Button>
       </form>
     </Form>
+  );
+}
+
+type PasswordButtonProps = React.PropsWithChildren<{
+  hidePassword: boolean;
+  setHidePassword: React.Dispatch<React.SetStateAction<boolean>>;
+}>;
+
+function PasswordButtonWrapper({
+  hidePassword,
+  setHidePassword,
+  children,
+}: PasswordButtonProps) {
+  return (
+    <div className="relative flex items-center">
+      {children}
+      <Button
+        className="absolute right-0"
+        type="button"
+        variant={"link"}
+        onClick={() => setHidePassword(!hidePassword)}
+      >
+        <Eye className={cn(hidePassword && "hidden")} />
+        <EyeOff className={cn(!hidePassword && "hidden")} />
+      </Button>
+    </div>
   );
 }
