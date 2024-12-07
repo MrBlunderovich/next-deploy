@@ -7,7 +7,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import SignupForm from "./_components/SignupForm";
-import LogInButton from "@/components/ui/auth/LogInButton";
 import AuthButton from "@/components/ui/auth/AuthButton.server";
 
 export default function RegisterPage() {
@@ -23,7 +22,7 @@ export default function RegisterPage() {
         </CardContent>
         <CardFooter>
           Already have an account?
-          <LogInButton />
+          <AuthButton brief />
         </CardFooter>
       </Card>
     </div>

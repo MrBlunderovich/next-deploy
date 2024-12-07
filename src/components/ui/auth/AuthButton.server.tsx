@@ -1,8 +1,9 @@
 import { SessionProvider } from "next-auth/react";
 import { auth, BASE_PATH } from "../../../nextauth";
 import AuthButtonClient from "./AuthButton.client";
+import LogInButtonClient from "./LogInButton.client";
 
-export default async function AuthButton() {
+export default async function AuthButton({ brief }: { brief?: boolean }) {
   const session = await auth();
   if (session && session.user) {
     console.log(session.user, "+++++++++full user data");
@@ -15,7 +16,7 @@ export default async function AuthButton() {
 
   return (
     <SessionProvider session={session} basePath={BASE_PATH}>
-      <AuthButtonClient />
+      {brief ? <LogInButtonClient /> : <AuthButtonClient />}
     </SessionProvider>
   );
 }
