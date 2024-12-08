@@ -26,10 +26,9 @@ export default function LoginPage() {
         <input
           className="rounded px-2 py-1 text-black"
           type="text"
-          name="username"
-          id="username"
-          placeholder="username"
-          defaultValue={"jsmith"}
+          name="email"
+          id="email"
+          placeholder="email"
         />
         <input
           className="rounded px-2 py-1 text-black"
@@ -37,7 +36,6 @@ export default function LoginPage() {
           name="password"
           id="password"
           placeholder="Password"
-          defaultValue={"pass"}
         />
         <input
           hidden

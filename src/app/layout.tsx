@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import ThemeToggle from "@/components/ui/theme-toggle";
+import { Toaster } from "@/components/ui/sonner";
 
 const primaryFont = Montserrat({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
             <ThemeToggle />
           </header>
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

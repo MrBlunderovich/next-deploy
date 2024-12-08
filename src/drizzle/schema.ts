@@ -8,6 +8,7 @@ function isoDate() {
 
 export const TaskTable = sqliteTable("tasks", {
   id: text("id").primaryKey().$defaultFn(nanoid).notNull(),
+  // user_id: text("user_id").notNull(),
   description: text("description", { length: 255 }).notNull(),
   is_completed: integer("is_completed", { mode: "boolean" })
     .default(false)
@@ -18,6 +19,8 @@ export const TaskTable = sqliteTable("tasks", {
 
 export type InsertTask = InferInsertModel<typeof TaskTable>;
 export type SelectTask = InferSelectModel<typeof TaskTable>;
+
+//-------------------------------------------------------------------
 
 export enum userRole {
   BASIC = "BASIC",

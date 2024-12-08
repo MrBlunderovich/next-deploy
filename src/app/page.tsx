@@ -77,7 +77,7 @@ export default async function Home() {
               <form className="grow" action={handleEdit}>
                 <input type="text" name="id" hidden readOnly value={task.id} />
                 <input
-                  className="flex h-8 w-full min-w-0 items-center rounded border border-slate-400 px-2 text-black dark:border-0"
+                  className="flex h-8 w-full min-w-0 items-center rounded border border-slate-400 bg-white px-2 text-black dark:border-0"
                   type="text"
                   name="description"
                   defaultValue={task.description}
@@ -100,7 +100,7 @@ export default async function Home() {
           action={postTask}
         >
           <input
-            className="flex h-8 min-w-0 grow items-center rounded border border-slate-400 px-2 text-black dark:border-0"
+            className="flex h-8 min-w-0 grow items-center rounded border border-slate-400 bg-white px-2 text-black dark:border-0"
             type="text"
             name="description"
             autoFocus

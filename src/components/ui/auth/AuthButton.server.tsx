@@ -6,8 +6,6 @@ import LogInButtonClient from "./LogInButton.client";
 export default async function AuthButton({ brief }: { brief?: boolean }) {
   const session = await auth();
   if (session && session.user) {
-    console.log(session.user, "+++++++++full user data");
-
     session.user = {
       name: session.user.name,
       email: session.user.email,

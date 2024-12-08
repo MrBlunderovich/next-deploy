@@ -16,10 +16,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, LoaderIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createUser, signInAction } from "../../login/actions";
-import { signIn } from "next-auth/react";
+import { toast } from "sonner";
 
 const FormSchema = z
   .object({
@@ -74,13 +74,20 @@ export default function SignupForm() {
         throw new Error("Could not create user");
       }
 
-      signInAction("credentials", {
+      await signInAction("credentials", {
         email: data.email,
         password: data.password,
+        redirectTo: "/",
       });
     } catch (error: any) {
+      if (error?.message === "NEXT_REDIRECT") {
+        throw error;
+      }
       console.error(error);
       console.log(error?.message);
+      if (error?.message) {
+        toast.error(error.message);
+      }
     } finally {
       setPending(false);
     }
@@ -166,7 +173,7 @@ export default function SignupForm() {
           )}
         />
         <Button type="submit" disabled={pending}>
-          Submit
+          Submit {pending && <LoaderIcon className="animate-spin" />}
         </Button>
       </form>
     </Form>
@@ -188,6 +195,7 @@ function PasswordButtonWrapper({
       {children}
       <Button
         className="absolute right-0"
+        tabIndex={-1}
         type="button"
         variant={"link"}
         onClick={() => setHidePassword(!hidePassword)}

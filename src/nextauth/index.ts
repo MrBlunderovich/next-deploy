@@ -8,39 +8,29 @@ export const authConfig: NextAuthConfig = {
     Credentials({
       name: "Credentials",
       credentials: {
-        username: {}, //{ label: "Username", type: "text", placeholder: "jsmith" },
+        email: {}, //{ label: "email", type: "text", placeholder: "jsmith" },
         password: {}, //{ label: "Password", type: "password" },
       },
       authorize: async (credentials): Promise<any | null> => {
-        console.log(credentials, "authorize fn credentials");
+        try {
+          const url = new URL("/auth/check", process.env.NEXT_PUBLIC_BASE_URL)
+            .href;
 
-        if (
-          credentials?.username === "jsmith" &&
-          credentials?.password === "pass"
-        ) {
-          return {
-            id: "1",
-            name: "John Smith",
-            email: "jsmith@me.com",
-            secret_data: "secret",
-          };
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(credentials),
+          });
+          if (!response.ok) return null;
+          return await response.json();
+        } catch (error) {
+          console.error(error);
+
+          return null;
         }
-        return null;
-
-        /* const response = await fetch('request')
-        if(!response.ok) return null
-        return await response.json() ?? null */
       },
-      /* async authorize(credentials) {
-        const res = await fetch(`${BASE_PATH}/callback`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
-        });
-        return null;
-      }, */
     }),
   ],
   basePath: BASE_PATH,
