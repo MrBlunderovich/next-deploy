@@ -1,1 +1,0 @@
-ALTER TABLE `tasks` ADD `test7` text;

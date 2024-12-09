@@ -4,6 +4,20 @@ import Credentials from "next-auth/providers/credentials";
 export const BASE_PATH = "/auth/api";
 
 export const authConfig: NextAuthConfig = {
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      if (token) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+  },
   providers: [
     Credentials({
       name: "Credentials",

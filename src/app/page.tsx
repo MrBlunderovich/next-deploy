@@ -6,6 +6,7 @@ import { asc, desc, eq } from "drizzle-orm";
 import { Check, PlusCircle, Trash2 } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
+import { auth } from "@/nextauth";
 
 export const dynamic = "force-dynamic";
 
@@ -17,8 +18,18 @@ export default async function Home() {
 
   async function postTask(formData: FormData) {
     "use server";
+    const session = await auth();
+    console.log(session, "---------------------------------session");
+    const user_id = session?.user?.id;
+    if (!user_id) {
+      console.log("#############################not logged in");
+      return;
+
+      // throw new Error("User not found");
+    }
+
     const description = (formData.get("description") as string) || "";
-    await db.insert(TaskTable).values({ description });
+    await db.insert(TaskTable).values({ description, user_id });
     revalidatePath("/");
   }
 

@@ -8,7 +8,7 @@ function isoDate() {
 
 export const TaskTable = sqliteTable("tasks", {
   id: text("id").primaryKey().$defaultFn(nanoid).notNull(),
-  // user_id: text("user_id").notNull(),
+  user_id: text("user_id").notNull(),
   description: text("description", { length: 255 }).notNull(),
   is_completed: integer("is_completed", { mode: "boolean" })
     .default(false)

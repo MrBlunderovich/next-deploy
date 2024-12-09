@@ -5,50 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1732368939994,
-      "tag": "0000_mute_joseph",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1732369455204,
-      "tag": "0001_small_sumo",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1732369980221,
-      "tag": "0002_loving_kang",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1732370706604,
-      "tag": "0003_perpetual_marvex",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "6",
-      "when": 1732371031332,
-      "tag": "0004_crazy_jackal",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "6",
-      "when": 1732371912029,
-      "tag": "0005_messy_shockwave",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "6",
-      "when": 1733588468553,
-      "tag": "0006_new_the_santerians",
+      "when": 1733757949003,
+      "tag": "0000_groovy_mattie_franklin",
       "breakpoints": true
     }
   ]
