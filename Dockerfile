@@ -9,7 +9,8 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci
+# shadcn requires --force with react 19 for the time being
+RUN npm ci --force
 
 # Rebuild the source code only when needed
 FROM base AS builder
