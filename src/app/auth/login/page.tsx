@@ -55,7 +55,7 @@ export default function LoginPage() {
         another page
       </Link>
       <p className="flex items-center gap-2">
-        Don't have an account?
+        Don&lsquo;t have an account?
         <Link className="underline" href="/auth/register">
           Register
         </Link>

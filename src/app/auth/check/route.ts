@@ -15,6 +15,8 @@ export async function POST(request: Request) {
     const user = await checkUser(email, password);
     return Response.json(user);
   } catch (error) {
+    console.log(error);
+
     return new Response("User not found", {
       status: 401,
     });

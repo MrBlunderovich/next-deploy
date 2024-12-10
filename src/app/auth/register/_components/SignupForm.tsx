@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import * as React from "react";
-import { Button, ButtonProps } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { Eye, EyeOff, LoaderIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createUser, signInAction } from "../../login/actions";
@@ -50,7 +50,7 @@ const FormSchema = z
 export default function SignupForm() {
   const [pending, setPending] = React.useState(false);
   const [hidePassword, setHidePassword] = React.useState(false);
-  const router = useRouter();
+  // const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {

@@ -67,6 +67,7 @@ export async function checkUser(email: string, password: string) {
       secret_data: "secret",
     };
   } catch (error) {
+    console.log(error);
     return null;
   }
 }
