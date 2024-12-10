@@ -39,6 +39,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder /app/src/drizzle/migrations ./src/drizzle/migrations
+COPY --from=builder /app/drizzle.config.ts ./drizzle.config.ts
 
 # Ensure correct permissions for database
 RUN mkdir -p /app/db && chown -R nextjs:nodejs /app/db
@@ -46,5 +47,5 @@ RUN mkdir -p /app/db && chown -R nextjs:nodejs /app/db
 USER nextjs
 EXPOSE 3201
 # CMD ["node", "server.js"]
-CMD ["sh", "-c", "npx drizzle-kit push && node server.js"]
+CMD ["sh", "-c", "npx drizzle-kit --config=drizzle.config.ts push && node server.js"]
 
