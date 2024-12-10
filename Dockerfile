@@ -17,8 +17,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-# RUN npm install --no-save typescript
-# RUN npx tsc src/drizzle/migrate.ts --outDir dist/drizzle
 
 RUN npm run build
 

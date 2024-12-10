@@ -27,12 +27,8 @@ export enum userRole {
   ADMIN = "ADMIN",
 }
 
-const USER_ID_LENGTH = 30;
-
 export const UserTable = sqliteTable("users", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => nanoid(USER_ID_LENGTH)),
+  id: text("id").primaryKey().$defaultFn(nanoid),
   name: text("name", { length: 255 }).notNull(),
   email: text("email", { length: 255 }).notNull().unique(),
   salt: text("salt", { length: 255 }).notNull(),
