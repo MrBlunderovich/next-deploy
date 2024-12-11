@@ -27,8 +27,7 @@ export const authConfig: NextAuthConfig = {
       },
       authorize: async (credentials): Promise<any | null> => {
         try {
-          const url = new URL("/auth/check", process.env.NEXT_PUBLIC_BASE_URL)
-            .href;
+          const url = new URL("/auth/check", "http://localhost:3201").href;
 
           const response = await fetch(url, {
             method: "POST",
