@@ -11,7 +11,6 @@ export default function AuthButtonClient() {
 
   function handleClick() {
     if (user) {
-      // signOut();
       signOut({ redirectTo: "/auth/login?callbackUrl=" + pathname });
     } else {
       signIn();
