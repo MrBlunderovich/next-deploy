@@ -46,6 +46,4 @@ RUN mkdir -p /app/db && chown -R nextjs:nodejs /app/db
 
 USER nextjs
 EXPOSE 3201
-# CMD ["node", "server.js"]
-CMD ["sh", "-c", "npx drizzle-kit --config=drizzle.config.ts push && node server.js"]
-
+CMD ["node", "server.js"]
