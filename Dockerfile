@@ -27,7 +27,7 @@ WORKDIR /app
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
     PORT=3201 \
-    HOSTNAME="https://helium.700785861.xyz" \
+    HOSTNAME="0.0.0.0" \
     DATABASE_URL="/app/db/sqlite3.db" \
     DRIZZLE_VERBOSE="true"
 
