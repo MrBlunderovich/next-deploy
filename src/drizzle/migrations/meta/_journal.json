@@ -15,6 +15,13 @@
       "when": 1734022621841,
       "tag": "0001_yummy_champions",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1734024233818,
+      "tag": "0002_nappy_martin_li",
+      "breakpoints": true
     }
   ]
 }

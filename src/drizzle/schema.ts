@@ -37,6 +37,7 @@ export const UserTable = sqliteTable("users", {
   // email_verified: integer("email_verified", { mode: "boolean" }).default(false),
   created_at: text("created_at").$defaultFn(isoDate).notNull(),
   updated_at: text("updated_at").$onUpdateFn(isoDate).notNull(),
+  dummy_column: text("dummy_column").default("dummy").notNull(),
 });
 
 export type InsertUser = InferInsertModel<typeof UserTable>;
