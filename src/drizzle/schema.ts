@@ -34,7 +34,7 @@ export const UserTable = sqliteTable("users", {
   salt: text("salt", { length: 255 }).notNull(),
   password: text("password", { length: 255 }).notNull(),
   role: text("userRole").notNull().default(userRole.BASIC),
-  email_verified: integer("email_verified", { mode: "boolean" }).default(false),
+  // email_verified: integer("email_verified", { mode: "boolean" }).default(false),
   created_at: text("created_at").$defaultFn(isoDate).notNull(),
   updated_at: text("updated_at").$onUpdateFn(isoDate).notNull(),
 });
