@@ -3,7 +3,51 @@
 // export function middleware(request: NextRequest) {
 //   console.log(request.nextUrl.href, ">>>>>>>>>>>>>>>>>>>>>>>request href");
 // }
-export { auth as middleware } from "@/nextauth";
+// export { auth as middleware } from "@/nextauth";
+import { NextRequest, NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+import { userRole } from "./drizzle/schema";
+
+const PUBLIC_ROUTES = ["/auth", "/about"];
+
+export async function middleware(request: NextRequest) {
+  const url = request.nextUrl.clone(); // Clone the current URL for redirection logic
+
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+
+  // i18n example: Redirect root to the default locale (e.g., /en)
+  /* if (url.pathname === "/") {
+    url.pathname = "/en";
+    return NextResponse.redirect(url);
+  } */
+
+  // Public routes: Always allow access
+  if (PUBLIC_ROUTES.some((path) => url.pathname.startsWith(path))) {
+    return NextResponse.next();
+  }
+
+  // Protected routes: Require authentication
+  if (!token) {
+    url.searchParams.set("callbackUrl", url.pathname);
+    url.pathname = `/auth/login`; // Redirect to login if unauthenticated
+    // url.pathname = `/auth/login?callbackUrl=${url.pathname}`; // Redirect to login if unauthenticated
+    return NextResponse.redirect(url);
+  }
+
+  // Example: Check for user roles or other custom logic
+  if (token.role !== userRole.ADMIN && url.pathname.includes("/admin")) {
+    url.pathname = "/auth/unauthorized"; // Redirect unauthorized users
+    return NextResponse.redirect(url);
+  }
+
+  // Other functionality can go here...
+
+  // Default: Allow the request
+  return NextResponse.next();
+}
 
 export const config = {
   matcher: [
