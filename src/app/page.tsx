@@ -73,7 +73,7 @@ export default async function Home() {
         <ul className="flex flex-col">
           {data.map((task) => (
             <li
-              className="flex items-center gap-4 rounded p-1 hover:bg-slate-200 dark:hover:bg-slate-800"
+              className="flex items-center gap-4 rounded-md p-1 hover:bg-slate-200 dark:hover:bg-slate-800"
               key={task.id}
             >
               <form action={handleComplete}>
@@ -130,7 +130,7 @@ export default async function Home() {
         </ul>
 
         <form
-          className="mt-4 flex items-center gap-4 rounded p-1 hover:bg-slate-200 dark:hover:bg-slate-800"
+          className="mt-4 flex items-center gap-4 rounded-md p-1 hover:bg-slate-200 dark:hover:bg-slate-800"
           action={postTask}
         >
           <input
