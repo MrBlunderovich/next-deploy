@@ -54,8 +54,14 @@ export async function checkUser(email: string, password: string) {
     }
 
     const user = response[0];
+    //FIX_ME:
+    console.log(user, "+++++++++user");
 
     if (user.password !== hashValue(password + user.salt)) {
+      //FIX_ME: remove me
+      console.log("-------------Password does not match");
+      console.log(user.password, hashValue(password + user.salt));
+
       return Promise.reject(new Error("User not found"));
     }
 
