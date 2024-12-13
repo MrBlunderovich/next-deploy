@@ -36,6 +36,9 @@ export const authConfig: NextAuthConfig = {
             },
             body: JSON.stringify(credentials),
           });
+          //FIX_ME:
+          console.log(response.ok, "??????????????????response.ok");
+
           if (!response.ok) return null;
           return await response.json();
         } catch (error) {
