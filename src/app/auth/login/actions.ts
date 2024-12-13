@@ -65,6 +65,9 @@ export async function checkUser(email: string, password: string) {
       return Promise.reject(new Error("User not found"));
     }
 
+    //FIX_ME:
+    console.log("++++++++++++++++++++PASSWORD MATCHED");
+
     return {
       id: user.id,
       email: user.email,
@@ -73,6 +76,7 @@ export async function checkUser(email: string, password: string) {
       secret_data: "secret",
     };
   } catch (error) {
+    console.log("### checkUser error");
     console.log(error);
     return null;
   }
