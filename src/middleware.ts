@@ -20,6 +20,10 @@ export async function middleware(request: NextRequest) {
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
   });
+  console.log(
+    process.env.NEXTAUTH_SECRET,
+    "--------------->process.env.NEXTAUTH_SECRET",
+  );
 
   // i18n example: Redirect root to the default locale (e.g., /en)
   /* if (url.pathname === "/") {
