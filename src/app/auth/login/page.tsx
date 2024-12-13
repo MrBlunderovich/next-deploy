@@ -24,14 +24,14 @@ export default function LoginPage() {
         // action={formSignIn}
       >
         <input
-          className="rounded px-2 py-1 text-black"
+          className="rounded px-2 py-1 text-black dark:text-white"
           type="text"
           name="email"
           id="email"
           placeholder="email"
         />
         <input
-          className="rounded px-2 py-1 text-black"
+          className="rounded px-2 py-1 text-black dark:text-white"
           type="text"
           name="password"
           id="password"

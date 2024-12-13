@@ -14,6 +14,7 @@ const PUBLIC_ROUTES = ["/auth", "/about"];
 
 export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone(); // Clone the current URL for redirection logic
+  console.log(request.nextUrl.href, ">>>>>>>>>>>>>>>>>>>>>>>request href");
 
   const token = await getToken({
     req: request,
@@ -30,6 +31,7 @@ export async function middleware(request: NextRequest) {
   if (PUBLIC_ROUTES.some((path) => url.pathname.startsWith(path))) {
     return NextResponse.next();
   }
+  console.log(token, "--------------------token");
 
   // Protected routes: Require authentication
   if (!token) {
@@ -38,12 +40,14 @@ export async function middleware(request: NextRequest) {
     // url.pathname = `/auth/login?callbackUrl=${url.pathname}`; // Redirect to login if unauthenticated
     return NextResponse.redirect(url);
   }
+  console.log(token.role, "--------------------token.role");
 
   // Example: Check for user roles or other custom logic
   if (token.role !== userRole.ADMIN && url.pathname.includes("/admin")) {
     url.pathname = "/auth/unauthorized"; // Redirect unauthorized users
     return NextResponse.redirect(url);
   }
+  console.log(">>>>>>>>>return");
 
   // Other functionality can go here...
 

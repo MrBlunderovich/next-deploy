@@ -1,6 +1,6 @@
 "use server";
 
-import "server-only";
+// import "server-only";
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
