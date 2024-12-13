@@ -8,11 +8,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { userRole } from "./drizzle/schema";
 
-export { auth as middleware } from "@/nextauth";
+// export { auth as middleware } from "@/nextauth";
 
 const PUBLIC_ROUTES = ["/auth", "/about"];
 
-export async function middleware_(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone(); // Clone the current URL for redirection logic
 
   const token = await getToken({
