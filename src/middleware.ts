@@ -21,6 +21,12 @@ export async function middleware(request: NextRequest) {
     secret: process.env.NEXTAUTH_SECRET,
   });
   console.log(
+    request.headers.get("__Secure-authjs.session-token"),
+    "***************__Secure-authjs.session-token",
+  );
+
+  console.log(token, "--------------------token");
+  console.log(
     process.env.NEXTAUTH_SECRET,
     "--------------->process.env.NEXTAUTH_SECRET",
   );
@@ -35,7 +41,6 @@ export async function middleware(request: NextRequest) {
   if (PUBLIC_ROUTES.some((path) => url.pathname.startsWith(path))) {
     return NextResponse.next();
   }
-  console.log(token, "--------------------token");
 
   // Protected routes: Require authentication
   if (!token) {
@@ -57,6 +62,7 @@ export async function middleware(request: NextRequest) {
 
   // Default: Allow the request
   return NextResponse.next();
+  // return auth(request,ctx);
 }
 
 export const config = {
