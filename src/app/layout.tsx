@@ -1,9 +1,8 @@
-import { cn } from "@/lib/utils";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import ThemeToggle from "@/components/ui/theme-toggle";
 import { Toaster } from "@/components/ui/sonner";
 
 const primaryFont = Montserrat({
@@ -33,9 +32,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <header className="csstricks-gradient relative flex items-center justify-end px-4 py-2">
-            <ThemeToggle />
-          </header>
           {children}
           <Toaster />
         </ThemeProvider>

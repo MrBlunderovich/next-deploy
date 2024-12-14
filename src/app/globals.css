@@ -69,6 +69,16 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
+  a {
+    @apply underline;
+  }
+}
+
+@layer components {
+  .h1 {
+    @apply mb-4 text-center text-5xl;
+  }
 }
 
 @layer utilities {

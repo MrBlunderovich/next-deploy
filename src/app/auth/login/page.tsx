@@ -16,7 +16,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex grow flex-col items-center justify-center gap-4">
+    <div className="flex grow flex-col items-center justify-center gap-4">
       <h1 className="text-3xl">Login</h1>
       <form
         className="flex flex-col gap-4 rounded border border-red-500 p-4"
@@ -51,15 +51,10 @@ export default function LoginPage() {
           Sign In
         </button>
       </form>
-      <Link className="underline" href="/another-page">
-        another page
-      </Link>
       <p className="flex items-center gap-2">
         Don&lsquo;t have an account?
-        <Link className="underline" href="/auth/register">
-          Register
-        </Link>
+        <Link href="/auth/register">Register</Link>
       </p>
-    </main>
+    </div>
   );
 }

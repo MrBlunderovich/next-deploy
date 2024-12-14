@@ -1,17 +1,15 @@
 import { cn } from "@/lib/utils";
-import AuthButton from "@/components/ui/auth/AuthButton.server";
 import { db } from "@/drizzle/db";
 import { TaskTable } from "@/drizzle/schema";
 import { and, asc, desc, eq } from "drizzle-orm";
 import { Check, PlusCircle, Trash2 } from "lucide-react";
 import { revalidatePath } from "next/cache";
-import Link from "next/link";
 import { auth } from "@/nextauth";
 import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-export default async function Home() {
+export default async function TasksPage() {
   const session = await auth();
   const user_id = session?.user?.id;
   if (!user_id) redirect("/auth/login");
@@ -45,11 +43,12 @@ export default async function Home() {
   async function handleComplete(formData: FormData) {
     "use server";
     const id = formData.get("id") as string;
+    const is_completed = formData.get("is_completed") === "on";
     const user_id = (formData.get("user_id") as string) || "";
     await db
       .update(TaskTable)
       .set({
-        is_completed: !data.find((task) => task.id === id)?.is_completed,
+        is_completed: !is_completed,
         updated_at: new Date().toISOString(),
       })
       .where(and(eq(TaskTable.id, id), eq(TaskTable.user_id, user_id)));
@@ -67,7 +66,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="flex grow flex-col items-center justify-center gap-4 p-24">
+    <div className="flex grow flex-col items-center justify-center gap-4 p-24">
       <h1 className="mb-6 text-5xl">Server Only</h1>
       <div className="min-w-[400px] rounded border border-red-600 p-4">
         <ul className="flex flex-col">
@@ -84,6 +83,13 @@ export default async function Home() {
                   hidden
                   readOnly
                   value={user_id}
+                />
+                <input
+                  type="checkbox"
+                  name="is_completed"
+                  readOnly
+                  checked={task.is_completed}
+                  hidden
                 />
                 <button className="group flex h-8 w-8 items-center justify-center rounded border border-slate-400 bg-white text-black hover:text-amber-500 dark:border-0">
                   <Check
@@ -145,11 +151,6 @@ export default async function Home() {
           </button>
         </form>
       </div>
-      <Link className="underline" href="/another-page">
-        Go to another page
-      </Link>
-
-      <AuthButton />
-    </main>
+    </div>
   );
 }
