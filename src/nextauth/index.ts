@@ -8,7 +8,7 @@ export const authConfig: NextAuthConfig = {
     jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        //@ts-expect-error
+        //@ts-expect-error TODO: update User type
         token.role = user.role;
       }
       return token;
@@ -16,7 +16,7 @@ export const authConfig: NextAuthConfig = {
     session({ session, token }) {
       if (token) {
         session.user.id = token.id as string;
-        //@ts-expect-error
+        //@ts-expect-error TODO: update User type
         session.user.role = token.role as string;
       }
       return session;

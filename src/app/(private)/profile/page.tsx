@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export default async function ProfilePage() {
   const session = await auth();
-  //@ts-expect-error
+  //@ts-expect-error TODO: update User type
   const isAdmin = session?.user?.role === userRole.ADMIN;
   console.log(session, "session");
 
