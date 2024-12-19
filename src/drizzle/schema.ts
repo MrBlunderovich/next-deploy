@@ -1,6 +1,7 @@
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { nanoid } from "nanoid";
+import { title } from "process";
 
 function isoDate() {
   return new Date().toISOString();
@@ -42,3 +43,32 @@ export const UserTable = sqliteTable("users", {
 
 export type InsertUser = InferInsertModel<typeof UserTable>;
 export type SelectUser = InferSelectModel<typeof UserTable>;
+
+//-------------------------------------------------------------------
+
+type ImageObject = {
+  src: string;
+  alt: string;
+  blurhash: string;
+};
+
+type HomepageSectionContent = {
+  title?: string;
+  subtitle?: string;
+  text?: string;
+  image?: ImageObject;
+};
+
+export const HomepageSectionsTable = sqliteTable("homepage_sections", {
+  id: text("id").primaryKey(),
+  content: text("content", { mode: "json" }).$type<HomepageSectionContent>(),
+  created_at: text("created_at").$defaultFn(isoDate).notNull(),
+  updated_at: text("updated_at").$onUpdateFn(isoDate).notNull(),
+});
+
+export type InsertHomepageSection = InferInsertModel<
+  typeof HomepageSectionsTable
+>;
+export type SelectHomepageSection = InferSelectModel<
+  typeof HomepageSectionsTable
+>;
