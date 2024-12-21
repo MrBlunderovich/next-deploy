@@ -22,23 +22,7 @@ import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import { editHomepageBanner } from "@/app/(private)/admin/cms/homepage/actions";
 import { HomepageSectionContent } from "@/drizzle/schema";
-
-const FormSchema = z.object({
-  title: z.string().min(1, {
-    message: "Required.",
-  }),
-  image: z
-    .any()
-    .refine(
-      (file) =>
-        typeof window === "undefined"
-          ? true
-          : file instanceof FileList && file.length === 1,
-      "File is required.",
-    ),
-  /* .instanceof(FileList)
-    .refine((file) => file?.length == 1, "File is required."), */
-});
+import { BannerFormSchema } from "../schema";
 
 export default function BannerForm({
   bannerData,
@@ -47,8 +31,8 @@ export default function BannerForm({
 }) {
   const [pending, setPending] = React.useState(false);
   // const router = useRouter();
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof BannerFormSchema>>({
+    resolver: zodResolver(BannerFormSchema),
     defaultValues: {
       title: bannerData?.title || "",
 
@@ -56,13 +40,13 @@ export default function BannerForm({
     },
   });
 
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof BannerFormSchema>) {
     setPending(true);
     try {
       console.log(data);
       const formData = new FormData();
       formData.append("title", data.title);
-      formData.append("image", data.image[0]);
+      formData.append("image", data.image);
       const response = await editHomepageBanner(formData);
       console.log(response, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>response");
     } catch (error: any) {
@@ -78,8 +62,6 @@ export default function BannerForm({
       setPending(false);
     }
   }
-
-  const fileInputRegister = form.register("image");
 
   return (
     <FormWrapper title="Banner Section">
@@ -102,6 +84,7 @@ export default function BannerForm({
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="image"
@@ -111,10 +94,9 @@ export default function BannerForm({
                   <FormControl>
                     <Input
                       type="file"
-                      {...fileInputRegister}
                       onChange={(event) => {
-                        field.onChange(event.target?.files ?? undefined);
-                        // form.trigger("image");
+                        const file = event.target?.files?.[0] ?? undefined;
+                        field.onChange(file);
                       }}
                       accept="image/*"
                     />
@@ -134,7 +116,6 @@ export default function BannerForm({
           <Image
             className="object-contain object-center"
             src={bannerData?.image?.src || "/image_placeholder.png"}
-            // src={"/image_placeholder.png"}
             blurDataURL={bannerData?.image?.blurhash}
             alt=""
             fill

@@ -5,20 +5,22 @@ import { HomepageSectionsTable, InsertHomepageSection } from "@/drizzle/schema";
 import { saveImage } from "@/lib/action-utils";
 import { eq } from "drizzle-orm";
 import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
+import { BannerFormSchema } from "./schema";
 
 export async function editHomepageBanner(formData: FormData) {
-  //FIX_ME: zod
-  const title = formData.get("title");
-  const image = formData.get("image");
+  const _title = formData.get("title");
+  const _image = formData.get("image");
+
+  const { title, image } = BannerFormSchema.parse({
+    title: _title,
+    image: _image,
+  });
 
   if (typeof title !== "string" || !(image instanceof File)) return;
 
   const payload = { title, image };
-  console.log(payload, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>content");
   const response = await saveImage(image, "homepage_banner");
-  const { fileName, filePath, blurhash } = response;
-  console.log(fileName, "------------------------fileName");
-  console.log(response, "------------------------saveFile_response");
+  const { filePath, blurhash } = response;
 
   if (!response.success) return Promise.reject(response);
 
