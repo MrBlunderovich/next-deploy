@@ -1,7 +1,6 @@
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { nanoid } from "nanoid";
-import { title } from "process";
 
 function isoDate() {
   return new Date().toISOString();
@@ -46,13 +45,13 @@ export type SelectUser = InferSelectModel<typeof UserTable>;
 
 //-------------------------------------------------------------------
 
-type ImageObject = {
+export type ImageObject = {
   src: string;
   alt: string;
   blurhash: string;
 };
 
-type HomepageSectionContent = {
+export type HomepageSectionContent = {
   title?: string;
   subtitle?: string;
   text?: string;

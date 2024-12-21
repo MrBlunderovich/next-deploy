@@ -20,26 +20,39 @@ import { toast } from "sonner";
 import FormWrapper from "./FormWrapper";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
-import { editHomepageBanner } from "@/actions/cms/homepage";
+import { editHomepageBanner } from "@/app/(private)/admin/cms/homepage/actions";
+import { HomepageSectionContent } from "@/drizzle/schema";
 
 const FormSchema = z.object({
   title: z.string().min(1, {
     message: "Required.",
   }),
   image: z
-    .instanceof(FileList)
-    .refine((file) => file?.length == 1, "File is required."),
+    .any()
+    .refine(
+      (file) =>
+        typeof window === "undefined"
+          ? true
+          : file instanceof FileList && file.length === 1,
+      "File is required.",
+    ),
+  /* .instanceof(FileList)
+    .refine((file) => file?.length == 1, "File is required."), */
 });
 
-export default function BannerForm() {
+export default function BannerForm({
+  bannerData,
+}: {
+  bannerData: HomepageSectionContent | null;
+}) {
   const [pending, setPending] = React.useState(false);
   // const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      title: "",
-      //@ts-expect-error
-      image: "",
+      title: bannerData?.title || "",
+
+      image: undefined,
     },
   });
 
@@ -50,7 +63,8 @@ export default function BannerForm() {
       const formData = new FormData();
       formData.append("title", data.title);
       formData.append("image", data.image[0]);
-      editHomepageBanner(formData);
+      const response = await editHomepageBanner(formData);
+      console.log(response, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>response");
     } catch (error: any) {
       if (error?.message === "NEXT_REDIRECT") {
         throw error;
@@ -99,8 +113,10 @@ export default function BannerForm() {
                       type="file"
                       {...fileInputRegister}
                       onChange={(event) => {
-                        field.onChange(event.target?.files?.[0] ?? undefined);
+                        field.onChange(event.target?.files ?? undefined);
+                        // form.trigger("image");
                       }}
+                      accept="image/*"
                     />
                   </FormControl>
                   <FormMessage />
@@ -117,7 +133,9 @@ export default function BannerForm() {
         <Card className="relative flex-1">
           <Image
             className="object-contain object-center"
-            src="/back_media/john-bell-70WS-H8l4tk-unsplash.jpg"
+            src={bannerData?.image?.src || "/image_placeholder.png"}
+            // src={"/image_placeholder.png"}
+            blurDataURL={bannerData?.image?.blurhash}
             alt=""
             fill
           />

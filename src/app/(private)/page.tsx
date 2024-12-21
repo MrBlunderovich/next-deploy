@@ -1,12 +1,15 @@
+import { cachedHomepageBannerSection } from "@/app/(private)/admin/cms/homepage/actions";
 import PageBanner from "@/components/PageBanner";
 import Link from "next/link";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const bannerData = await cachedHomepageBannerSection();
+
   return (
     <div className="flex grow flex-col items-center gap-8">
       <PageBanner
-        imageSrc="/back_media/john-bell-70WS-H8l4tk-unsplash.jpg"
-        title="Homepage"
+        imageSrc={bannerData?.image?.src || ""}
+        title={bannerData?.title || ""}
       />
       <section className="container">
         <h2 className="text-3xl">Section Title</h2>
