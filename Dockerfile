@@ -2,7 +2,7 @@
 # docker build -t next-sqlite .
 # docker run -p 3201:3201 next-sqlite
 
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -43,6 +43,7 @@ COPY --from=builder /app/drizzle.config.ts ./drizzle.config.ts
 
 # Ensure correct permissions for database
 RUN mkdir -p /app/db && chown -R nextjs:nodejs /app/db
+RUN mkdir -p /app/media && chown -R nextjs:nodejs /app/media
 
 USER nextjs
 EXPOSE 3201
