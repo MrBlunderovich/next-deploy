@@ -54,7 +54,7 @@ export async function saveImage(file: File, prefix: string) {
   const extension = path.extname(file.name);
   const fileName = `${prefix}_${Date.now()}${extension}`;
   const filePath = path.join(uploadsDir, fileName);
-  let relativePath = "/" + path.relative(process.cwd(), filePath);
+  const relativePath = "/" + path.relative(process.cwd(), filePath);
 
   /*  if (relativePath.startsWith("public")) {
     relativePath = relativePath.replace("public", "");
