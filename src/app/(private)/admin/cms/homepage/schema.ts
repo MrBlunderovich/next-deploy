@@ -7,9 +7,9 @@ export const BannerFormSchema = z.object({
   image: z
     .any()
     .refine((file) => file instanceof File, "File is required.")
-    .refine((file) => file.size > 0, "File is required.")
+    .refine((file) => file?.size > 0, "File is required.")
     .refine(
-      (file) => file.type.startsWith("image/"),
+      (file) => file?.type.startsWith("image/"),
       "Only image files are allowed.",
     ),
 });

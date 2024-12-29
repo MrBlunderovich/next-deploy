@@ -7,10 +7,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex grow flex-col items-center gap-8">
-      <PageBanner
-        imageSrc={bannerData?.image?.src || ""}
-        title={bannerData?.title || ""}
-      />
+      <PageBanner image={bannerData?.image} title={bannerData?.title} />
       <section className="container">
         <h2 className="text-3xl">Section Title</h2>
         <p className="mt-2">

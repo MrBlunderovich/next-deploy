@@ -49,17 +49,16 @@ export async function saveImage(file: File, prefix: string) {
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
-  const uploadsDir = path.join(process.cwd(), "public", "back_media"); // Ensure this folder exists
+  const uploadsDir = path.join(process.cwd(), "media"); // Ensure this folder exists
   //FIX_ME: check file extension
   const extension = path.extname(file.name);
   const fileName = `${prefix}_${Date.now()}${extension}`;
   const filePath = path.join(uploadsDir, fileName);
-  let relativePath = path.relative(process.cwd(), filePath);
+  let relativePath = "/" + path.relative(process.cwd(), filePath);
 
-  // Remove the '/public' segment
-  if (relativePath.startsWith("public")) {
+  /*  if (relativePath.startsWith("public")) {
     relativePath = relativePath.replace("public", "");
-  }
+  } */
 
   cleanUpFiles(uploadsDir, prefix);
 

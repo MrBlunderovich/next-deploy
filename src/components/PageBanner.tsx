@@ -1,18 +1,23 @@
+import { ImageObject } from "@/drizzle/schema";
 import Image from "next/image";
 
 export default function PageBanner({
-  imageSrc,
+  image,
   title,
 }: {
-  imageSrc: string;
-  title: string;
+  image: ImageObject | undefined;
+  title: string | undefined;
 }) {
   return (
     <section className="PageBanner grid h-[600px] w-full [grid-template-areas:'banner']">
       <div className="relative [grid-area:banner]">
         <Image
           className="object-cover object-center"
-          src={imageSrc}
+          src={image?.src || ""}
+          placeholder="blur"
+          blurDataURL={image?.blurhash || ""}
+          sizes="100vw"
+          priority
           fill
           alt=""
         />

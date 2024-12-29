@@ -42,3 +42,4 @@ next-env.d.ts
 /db_
 /db
 /public/back_media
+/media

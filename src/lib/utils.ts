@@ -12,3 +12,7 @@ export function hashValue(inputValue: string | number) {
     .update(inputValue.toString())
     .digest("hex");
 }
+
+export async function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
