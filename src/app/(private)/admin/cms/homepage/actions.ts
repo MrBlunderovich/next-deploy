@@ -55,7 +55,7 @@ export async function getHomepageBannerSection() {
     .from(HomepageSectionsTable)
     .where(eq(HomepageSectionsTable.id, "banner"));
 
-  return data[0].content;
+  return data[0]?.content ?? null;
 }
 
 export const cachedHomepageBannerSection = unstable_cache(
