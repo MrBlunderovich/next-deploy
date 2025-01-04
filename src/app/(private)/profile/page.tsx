@@ -16,6 +16,7 @@ export default async function ProfilePage() {
       <Link href="/">Go home</Link>
       <Link href="/tasks">Tasks</Link>
       {isAdmin && <Link href="/admin">Admin dashboard</Link>}
+      {isAdmin && <Link href="/admin/cms">Admin CMS</Link>}
       <pre className="mt-8">{JSON.stringify(session, null, 2)}</pre>
     </div>
   );

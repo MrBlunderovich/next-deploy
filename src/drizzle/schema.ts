@@ -71,3 +71,18 @@ export type InsertHomepageSection = InferInsertModel<
 export type SelectHomepageSection = InferSelectModel<
   typeof HomepageSectionsTable
 >;
+
+//-------------------------------------------------------------------
+
+export const BasicSectionsTable = sqliteTable("basic_sections", {
+  id: text("id").primaryKey().$defaultFn(nanoid),
+  section_name: text("section_name").notNull().unique(),
+  title: text("title", { length: 255 }),
+  description: text("description"),
+  image: text("image", { mode: "json" }).$type<ImageObject>(),
+  created_at: text("created_at").$defaultFn(isoDate).notNull(),
+  updated_at: text("updated_at").$onUpdateFn(isoDate).notNull(),
+});
+
+export type InsertBasicSection = InferInsertModel<typeof BasicSectionsTable>;
+export type SelectBasicSection = InferSelectModel<typeof BasicSectionsTable>;

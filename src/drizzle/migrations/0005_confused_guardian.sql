@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX `basic_sections_section_id_unique` ON `basic_sections` (`section_id`);

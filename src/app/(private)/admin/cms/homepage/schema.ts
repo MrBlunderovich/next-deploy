@@ -13,3 +13,12 @@ export const BannerFormSchema = z.object({
       "Only image files are allowed.",
     ),
 });
+
+export const DescriptionFormSchema = z.object({
+  title: z.string().min(1, {
+    message: "Required.",
+  }),
+  description: z.string().min(1, {
+    message: "Required.",
+  }),
+});
