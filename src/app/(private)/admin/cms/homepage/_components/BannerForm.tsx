@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 // import { useRouter } from "next/navigation";
 import { LoaderIcon } from "lucide-react";
 import { toast } from "sonner";
-import FormWrapper from "./FormWrapper";
+import FormWrapper from "../../../../../../components/ui/FormWrapper";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import { editHomepageBanner } from "@/app/(private)/admin/cms/homepage/actions";

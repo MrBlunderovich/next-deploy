@@ -2,10 +2,11 @@ import {
   cachedHomepageBannerSection,
   cachedHomepageDescriptionSection,
 } from "@/app/(private)/admin/cms/homepage/actions";
-import BannerForm from "./_component/BannerForm";
+import BannerForm from "./_components/BannerForm";
 import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
-import DescriptionForm from "./_component/DescriptionForm";
+import DescriptionForm from "./_components/DescriptionForm";
+import GalleryForm from "../_modules/gallery/GalleryForm";
 
 export default async function CmsHomepage() {
   const bannerData = await cachedHomepageBannerSection();
@@ -24,6 +25,7 @@ export default async function CmsHomepage() {
       </h1>
       <BannerForm bannerData={bannerData} />
       <DescriptionForm descriptionData={descriptionData} />
+      <GalleryForm sectionName="Gallery" data={null} />
     </>
   );
 }

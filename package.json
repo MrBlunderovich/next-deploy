@@ -8,9 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "drizzle-kit generate",
-    "migrate": "tsx src/drizzle/migrate.ts",
-    "studio": "npx drizzle-kit studio"
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/drizzle/migrate.ts",
+    "db:studio": "npx drizzle-kit studio"
   },
   "pre-push": "lint",
   "dependencies": {

@@ -1,11 +1,11 @@
-import { ImageObject } from "@/drizzle/schema";
+import { MetaImage } from "@/drizzle/reusable";
 import Image from "next/image";
 
 export default function PageBanner({
   image,
   title,
 }: {
-  image: ImageObject | undefined;
+  image: MetaImage | undefined;
   title: string | undefined;
 }) {
   return (

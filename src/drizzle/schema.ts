@@ -1,6 +1,38 @@
-import { InferInsertModel, InferSelectModel } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, sql } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { nanoid } from "nanoid";
+
+export type MetaImage = {
+  src: string;
+  alt: string;
+  blurhash: string;
+};
+
+export const baseColumns = {
+  id: text("id").primaryKey().$defaultFn(nanoid),
+  created_at: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+  updated_at: integer("updated_at", { mode: "timestamp" })
+    .notNull()
+    .$onUpdateFn(() => sql`(unixepoch())`),
+};
+
+export const baseSectionColumns = {
+  ...baseColumns,
+  section_name: text("section_name").notNull().unique(),
+};
+
+export const ImageTable = sqliteTable("images", {
+  ...baseColumns,
+  belongs_to: text("belongs_to").notNull(),
+  src: text("src", { length: 255 }).notNull(),
+  alt: text("alt", { length: 255 }).notNull(),
+  blurhash: text("blurhash", { length: 255 }).notNull(),
+});
+
+//-------------------------------------------------------------------
+//-------------------------------------------------------------------
 
 function isoDate() {
   return new Date().toISOString();
@@ -45,17 +77,11 @@ export type SelectUser = InferSelectModel<typeof UserTable>;
 
 //-------------------------------------------------------------------
 
-export type ImageObject = {
-  src: string;
-  alt: string;
-  blurhash: string;
-};
-
 export type HomepageSectionContent = {
   title?: string;
   subtitle?: string;
   text?: string;
-  image?: ImageObject;
+  image?: MetaImage;
 };
 
 export const HomepageSectionsTable = sqliteTable("homepage_sections", {
@@ -79,10 +105,28 @@ export const BasicSectionsTable = sqliteTable("basic_sections", {
   section_name: text("section_name").notNull().unique(),
   title: text("title", { length: 255 }),
   description: text("description"),
-  image: text("image", { mode: "json" }).$type<ImageObject>(),
+  image: text("image", { mode: "json" }).$type<MetaImage>(),
   created_at: text("created_at").$defaultFn(isoDate).notNull(),
   updated_at: text("updated_at").$onUpdateFn(isoDate).notNull(),
 });
 
 export type InsertBasicSection = InferInsertModel<typeof BasicSectionsTable>;
 export type SelectBasicSection = InferSelectModel<typeof BasicSectionsTable>;
+
+//-------------------------------------------------------------------
+
+export const GalleryTable = sqliteTable("gallery", {
+  ...baseSectionColumns,
+  title: text("title", { length: 255 }).notNull(),
+});
+
+export type InsertGallery = InferInsertModel<typeof GalleryTable>;
+export type SelectGallery = InferSelectModel<typeof GalleryTable>;
+
+//-------------------------------------------------------------------
+
+export const ImageSectionTable = sqliteTable("image_section", {
+  id: text("id").primaryKey().$defaultFn(nanoid),
+  section_id: text("section_id").notNull(),
+  image_id: text("image_id").notNull(),
+});
