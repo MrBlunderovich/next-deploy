@@ -48,16 +48,29 @@ export default function GalleryForm({
   );
 
   async function onSubmit(data: z.infer<typeof GalleryFormSchema>) {
-    console.log(data);
-    const formData = new FormData();
-    formData.append("title", data.title);
-    const images = data.images;
-    images.forEach((image) => {
-      formData.append("images", image.file);
-      formData.append("alt", image.alt || "");
-    });
-
-    editHomepageGallery(formData);
+    setPending(true);
+    try {
+      console.log(data);
+      const formData = new FormData();
+      formData.append("title", data.title);
+      const images = data.images;
+      images.forEach((image) => {
+        formData.append("images", image.file);
+        formData.append("alt", image.alt || "");
+      });
+      editHomepageGallery(formData);
+    } catch (error: any) {
+      if (error?.message === "NEXT_REDIRECT") {
+        throw error;
+      }
+      console.error(error);
+      console.log(error?.message);
+      if (error?.message) {
+        toast.error(error.message);
+      }
+    } finally {
+      setPending(false);
+    }
 
     /* setPending(true);
     try {

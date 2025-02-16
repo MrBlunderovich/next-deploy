@@ -125,8 +125,7 @@ export type SelectGallery = InferSelectModel<typeof GalleryTable>;
 
 //-------------------------------------------------------------------
 
-export const ImageSectionTable = sqliteTable("image_section", {
-  id: text("id").primaryKey().$defaultFn(nanoid),
+export const ImagesTable = sqliteTable("images", {
+  ...baseColumns,
   section_id: text("section_id").notNull(),
-  image_id: text("image_id").notNull(),
 });

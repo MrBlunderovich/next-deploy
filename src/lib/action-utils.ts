@@ -45,14 +45,14 @@ function cleanUpFiles(directory: string, prefix: string): void {
   });
 }
 
-export async function saveImage(file: File, prefix: string) {
+export async function saveImage(file: File, prefix: string, index?: number) {
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
   const uploadsDir = path.join(process.cwd(), "media"); // Ensure this folder exists
   //FIX_ME: check file extension
   const extension = path.extname(file.name);
-  const fileName = `${prefix}_${Date.now()}${extension}`;
+  const fileName = `${prefix}${index ?? ""}_${Date.now()}${extension}`;
   const filePath = path.join(uploadsDir, fileName);
   const relativePath = "/" + path.relative(process.cwd(), filePath);
 

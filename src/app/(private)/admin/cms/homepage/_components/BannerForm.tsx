@@ -112,9 +112,17 @@ export default function BannerForm({
           </form>
         </Form>
 
-        <Card className="relative flex-1">
+        <Card className="relative flex-1 overflow-hidden">
           <Image
-            className="object-contain object-center"
+            className="object-cover object-center blur-md filter"
+            src={bannerData?.image?.src || "/image_placeholder.png"}
+            placeholder={bannerData?.image?.blurhash ? "blur" : "empty"}
+            blurDataURL={bannerData?.image?.blurhash}
+            alt=""
+            fill
+          />
+          <Image
+            className="z-0 object-contain object-center"
             src={bannerData?.image?.src || "/image_placeholder.png"}
             placeholder={bannerData?.image?.blurhash ? "blur" : "empty"}
             blurDataURL={bannerData?.image?.blurhash}

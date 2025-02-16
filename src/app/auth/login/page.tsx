@@ -13,9 +13,7 @@ export default function LoginPage() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     // formSignIn(formData);
-    signInAction("credentials", formData).catch(() => {
-      toast.error("Sign in failed");
-    });
+    signInAction("credentials", formData);
   }
 
   return (

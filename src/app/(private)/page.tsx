@@ -8,6 +8,7 @@ import Link from "next/link";
 export default async function HomePage() {
   const bannerData = await cachedHomepageBannerSection();
   const descriptionData = await cachedHomepageDescriptionSection();
+  console.log(bannerData, descriptionData);
 
   return (
     <div className="flex grow flex-col items-center gap-8">

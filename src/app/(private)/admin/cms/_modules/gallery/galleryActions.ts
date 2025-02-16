@@ -5,11 +5,13 @@ import {
   GalleryTable,
   HomepageSectionsTable,
   InsertHomepageSection,
+  MetaImage,
 } from "@/drizzle/schema";
 import { saveImage } from "@/lib/action-utils";
 import { eq } from "drizzle-orm";
 import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 import { GalleryFormSchema } from "./galleryZodSchema";
+import { off } from "process";
 
 export async function editHomepageGallery(formData: FormData) {
   const _title = formData.get("title");
@@ -26,48 +28,65 @@ export async function editHomepageGallery(formData: FormData) {
     images: _images,
   });
 
-  const payload = { title, images }; // ????
+  const processedImages: MetaImage[] = [];
+  async function processGalleryImage(
+    image: { file: File; alt?: string },
+    index: number,
+  ) {
+    const response = await saveImage(image.file, "homepage_gallery", index);
+    if (!response.success) {
+      console.error(`Failed to process image ${image}`);
+      return;
+    }
+    const { filePath, blurhash } = response;
+    processedImages.push({ src: filePath, blurhash, alt: image.alt || "" });
+  }
 
-  const processedImages = [];
-  /* await Promise.all(
-    images.map(async (image, index) => {
-      saveImage(image.file, "homepage_banner" + index)
-  })) */
-  //Promise.all????
-  images.forEach(async (image, index) => {
-    const response = await saveImage(image.file, "homepage_banner" + index);
+  const promises = images.map((image, index) =>
+    processGalleryImage(image, index),
+  );
+  try {
+    await Promise.all(promises);
+    console.log(processedImages, "processedImages");
+  } catch (error) {
+    console.log(error);
+  }
+
+  /* images.forEach(async (image, index) => {
+    const response = await saveImage(image.file, "homepage_gallery" + index);
     if (!response.success) {
       console.error(`Failed to process image ${image.file}`);
       return;
     }
     const { filePath, blurhash } = response;
-    processedImages.push({ filePath, blurhash, alt: image.alt });
-  });
+    processedImages.push({ src: filePath, blurhash, alt: image.alt || "" });
+  }); */
+
   // if (!response.success) return Promise.reject(response);
 
-  const content: InsertHomepageSection["content"] = {
+  /* const content: InsertHomepageSection["content"] = {
     title: payload.title,
     image: {
       src: filePath,
       blurhash,
       alt: "",
     },
-  };
+  }; */
 
-  const insertResponse = await db
+  /* const insertResponse = await db
     .insert(HomepageSectionsTable)
     .values({ id: "banner", content })
     .onConflictDoUpdate({
       target: HomepageSectionsTable.id,
       set: { content },
     })
-    .returning({ data: HomepageSectionsTable.content });
+    .returning({ data: HomepageSectionsTable.content }); */
 
-  revalidateTag("homepage_gallery");
-  revalidatePath("/admin/cms/homepage");
+  /* revalidateTag("homepage_gallery");
+  revalidatePath("/admin/cms/homepage"); */
   // revalidatePath("/");
 
-  return { status: "success", data: insertResponse[0].data };
+  // return { status: "success", data: insertResponse[0].data };
 }
 
 async function getGallerySection(sectionName: string) {
@@ -81,7 +100,7 @@ async function getGallerySection(sectionName: string) {
 }
 
 export const cachedHomepageGallerySection = unstable_cache(
-  () => getGallerySection("homepage_gallery"),
+  async () => getGallerySection("homepage_gallery"),
   ["homepage_gallery"],
   {
     tags: ["homepage", "homepage_gallery"],
