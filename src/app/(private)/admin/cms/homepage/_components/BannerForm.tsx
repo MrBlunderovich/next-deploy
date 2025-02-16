@@ -116,7 +116,7 @@ export default function BannerForm({
           <Image
             className="object-contain object-center"
             src={bannerData?.image?.src || "/image_placeholder.png"}
-            placeholder="blur"
+            placeholder={bannerData?.image?.blurhash ? "blur" : "empty"}
             blurDataURL={bannerData?.image?.blurhash}
             alt=""
             fill

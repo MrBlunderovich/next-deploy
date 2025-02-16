@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { signInAction } from "./actions";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
@@ -12,7 +13,9 @@ export default function LoginPage() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     // formSignIn(formData);
-    signInAction("credentials", formData);
+    signInAction("credentials", formData).catch(() => {
+      toast.error("Sign in failed");
+    });
   }
 
   return (
@@ -29,6 +32,7 @@ export default function LoginPage() {
           name="email"
           id="email"
           placeholder="email"
+          spellCheck={false}
         />
         <input
           className="rounded px-2 py-1 text-black dark:text-white"
@@ -36,6 +40,7 @@ export default function LoginPage() {
           name="password"
           id="password"
           placeholder="Password"
+          spellCheck={false}
         />
         <input
           hidden

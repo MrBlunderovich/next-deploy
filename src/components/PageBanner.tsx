@@ -1,4 +1,4 @@
-import { MetaImage } from "@/drizzle/reusable";
+import { MetaImage } from "@/drizzle/schema";
 import Image from "next/image";
 
 export default function PageBanner({
@@ -14,8 +14,8 @@ export default function PageBanner({
         <Image
           className="object-cover object-center"
           src={image?.src || ""}
-          placeholder="blur"
-          blurDataURL={image?.blurhash || ""}
+          placeholder={image?.blurhash ? "blur" : "empty"}
+          blurDataURL={image?.blurhash}
           sizes="100vw"
           priority
           fill

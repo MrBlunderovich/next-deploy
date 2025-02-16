@@ -8,7 +8,11 @@ import { InsertUser, UserTable } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 
 export async function signInAction(...args: Parameters<typeof signIn>) {
-  await signIn(...args);
+  try {
+    await signIn(...args);
+  } catch (error) {
+    return Promise.reject(error);
+  }
 }
 
 export async function createUser(
